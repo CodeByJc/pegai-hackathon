@@ -29,10 +29,22 @@ const STATUS_CONFIG = {
     labelClass: 'verification-status__label--not_run',
     icon: '○',
   },
+  execution_error: {
+    label: 'Execution error',
+    iconClass: 'verification-status__icon--failed',
+    labelClass: 'verification-status__label--failed',
+    icon: '!',
+  },
+  unverified: {
+    label: 'Unverified',
+    iconClass: 'verification-status__icon--not_verified',
+    labelClass: 'verification-status__label--not_verified',
+    icon: '?',
+  },
 };
 
 export function VerificationResultCard({ verification }: VerificationResultProps) {
-  const config = STATUS_CONFIG[verification.status];
+  const config = STATUS_CONFIG[verification.status] || STATUS_CONFIG['not_run'];
 
   return (
     <div className="result-card">

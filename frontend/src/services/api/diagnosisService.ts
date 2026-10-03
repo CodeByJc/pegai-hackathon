@@ -24,30 +24,6 @@ const MOCK_RESULT: DiagnosisResult = {
         "Traceback shows KeyError on the first call after startup",
       ],
     },
-    {
-      rank: 2,
-      title: "Incorrect settings object imported",
-      explanation:
-        "A different `settings` dict from a sibling module shadows the one populated by `load_config()`, " +
-        "so the loaded keys never appear in the object being read.",
-      confidence: 'medium',
-      evidence: [
-        "Two `settings` dicts defined: config.py and app/settings.py",
-        "Import path in main.py points to the empty fallback dict",
-      ],
-    },
-    {
-      rank: 3,
-      title: "Configuration file absent or malformed",
-      explanation:
-        "The configuration file does not exist in the deployment environment or contains a syntax error " +
-        "that causes the parser to return an empty dict without raising an exception.",
-      confidence: 'low',
-      evidence: [
-        "No config file found in the uploaded project files",
-        "config.py silently returns `{}` on any parse error",
-      ],
-    },
   ],
   fix: {
     summary:
@@ -55,52 +31,18 @@ const MOCK_RESULT: DiagnosisResult = {
     diffs: [
       {
         filename: 'main.py',
-        before: `async def startup():
-    schedule_config_load()
-    process(settings['config'])`,
-        after: `async def startup():
-    await load_config()
-    process(settings['config'])`,
+        before: `async def startup():\n    schedule_config_load()\n    process(settings['config'])`,
+        after: `async def startup():\n    await load_config()\n    process(settings['config'])`,
       },
     ],
   },
-  tests: [
-    {
-      filename: 'tests/test_startup.py',
-      content: `import pytest
-from unittest.mock import AsyncMock, patch
-from main import startup
-
-@pytest.mark.asyncio
-async def test_startup_loads_config_before_access():
-    """startup() must await load_config before reading settings."""
-    with patch("main.load_config", new_callable=AsyncMock) as mock_load:
-        mock_load.return_value = {"config": {"debug": False}}
-        await startup()
-        mock_load.assert_awaited_once()
-
-@pytest.mark.asyncio
-async def test_startup_raises_without_config():
-    """startup() raises KeyError if config is not loaded."""
-    with patch("main.load_config", new_callable=AsyncMock) as mock_load:
-        mock_load.return_value = {}
-        with pytest.raises(KeyError, match="config"):
-            await startup()
-`,
-    },
-  ],
+  tests: [],
   verification: {
     status: 'verified',
     testsRun: 3,
     passed: 3,
     failed: 0,
-    output:
-      '============================= test session starts ==============================\n' +
-      'collected 3 items\n\n' +
-      'tests/test_startup.py::test_startup_loads_config_before_access PASSED\n' +
-      'tests/test_startup.py::test_startup_raises_without_config PASSED\n' +
-      'tests/test_startup.py::test_config_key_present_after_load PASSED\n\n' +
-      '============================== 3 passed in 0.42s ==============================',
+    output: '',
   },
   durationMs: 8340,
 };
@@ -111,13 +53,11 @@ function delay(ms: number): Promise<void> {
 
 export class MockDiagnosisService implements DiagnosisService {
   async diagnose(_project: DebugProject): Promise<DiagnosisResult> {
-    // Simulate realistic backend latency
     await delay(3800);
     return { ...MOCK_RESULT, id: `mock-${Date.now()}` };
   }
 }
 
-// Production implementation — wires to the real backend.
 export class ApiDiagnosisService implements DiagnosisService {
   private baseUrl: string;
 
@@ -126,28 +66,79 @@ export class ApiDiagnosisService implements DiagnosisService {
   }
 
   async diagnose(project: DebugProject): Promise<DiagnosisResult> {
+    // 1. Create project
+    const createRes = await fetch(`${this.baseUrl}/projects`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({}),
+    });
+    if (!createRes.ok) throw new Error(`Failed to create project`);
+    const { project_id } = await createRes.json();
+
+    // 2. Upload files
     const formData = new FormData();
-    formData.append('traceback', project.traceback);
     for (const file of project.files) {
       if (file.content !== undefined) {
         const blob = new Blob([file.content], { type: 'text/x-python' });
         formData.append('files', blob, file.name);
       }
     }
-
-    const response = await fetch(`${this.baseUrl}/diagnose`, {
+    const filesRes = await fetch(`${this.baseUrl}/projects/${project_id}/files`, {
       method: 'POST',
       body: formData,
     });
+    if (!filesRes.ok) throw new Error(`Failed to upload files`);
 
-    if (!response.ok) {
-      const text = await response.text().catch(() => 'Unknown error');
-      throw new Error(`Diagnosis failed (${response.status}): ${text}`);
-    }
+    // 3. Set traceback
+    const tracebackRes = await fetch(`${this.baseUrl}/projects/${project_id}/traceback`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ traceback: project.traceback }),
+    });
+    if (!tracebackRes.ok) throw new Error(`Failed to set traceback`);
 
-    return response.json() as Promise<DiagnosisResult>;
+    // 4. Diagnose
+    const diagnoseRes = await fetch(`${this.baseUrl}/projects/${project_id}/diagnose`, {
+      method: 'POST',
+    });
+    if (!diagnoseRes.ok) throw new Error(`Diagnosis failed`);
+
+    const data = await diagnoseRes.json();
+    
+    return {
+      id: data.project_id || `diag-${Date.now()}`,
+      errorType: data.diagnosis?.error_type || 'UnknownError',
+      errorMessage: data.diagnosis?.error_message || 'Unknown Error',
+      rootCause: data.diagnosis?.root_cause || '',
+      hypotheses: data.hypotheses || [],
+      fix: {
+        summary: data.fix?.description || '',
+        diffs: (data.fix?.files_to_modify || []).map((f: any) => ({
+          filename: f.path,
+          before: '',
+          after: f.patch,
+        })),
+      },
+      tests: (data.tests || []).map((t: any) => ({
+        filename: t.path,
+        content: t.content,
+      })),
+      verification: data.verification ? {
+        status: data.verification.status,
+        testsRun: data.verification.tests_run || 0,
+        passed: data.verification.passed || 0,
+        failed: data.verification.failed || 0,
+        output: data.verification.stdout || data.verification.stderr || '',
+      } : {
+        status: 'not_run',
+        testsRun: 0,
+        passed: 0,
+        failed: 0,
+      },
+      durationMs: data.verification?.duration_ms || 0,
+    };
   }
 }
 
-// Toggle to MockDiagnosisService for local development without a backend.
-export const diagnosisService: DiagnosisService = new MockDiagnosisService();
+// Toggle to ApiDiagnosisService for local development with a backend.
+export const diagnosisService: DiagnosisService = new ApiDiagnosisService();

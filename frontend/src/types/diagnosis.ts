@@ -1,6 +1,6 @@
 export type ConfidenceLevel = 'high' | 'medium' | 'low';
 
-export type VerificationStatus = 'verified' | 'failed' | 'not_verified' | 'not_run';
+export type VerificationStatus = 'verified' | 'failed' | 'not_verified' | 'not_run' | 'execution_error' | 'unverified';
 
 export interface Hypothesis {
   rank: number;
