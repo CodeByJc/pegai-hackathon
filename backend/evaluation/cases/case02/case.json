@@ -1,0 +1,1 @@
+{"case_id": "case02", "description": "ZeroDivisionError — missing guard", "files": ["math_utils.py", "main.py"], "expected_error_type": "ZeroDivisionError", "expected_fix_verified": true}

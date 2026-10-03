@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "main.py", line 2, in <module>
+    print(compute_area(5))
+  File "compute.py", line 2, in compute_area
+    return pi * radius ** 2
+NameError: name 'pi' is not defined

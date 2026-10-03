@@ -1,0 +1,1 @@
+{"case_id": "case08", "description": "ImportError — missing module", "files": ["main.py"], "expected_error_type": "ModuleNotFoundError", "expected_fix_verified": true}

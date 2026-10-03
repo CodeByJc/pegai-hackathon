@@ -1,0 +1,34 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pydebug-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      # Workspaces persist across restarts
+      - ./workspaces:/app/workspaces
+      # Docker socket — required for sandbox execution
+      # ⚠ This grants significant privilege; review before production use
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - GEMINI_MODEL=${GEMINI_MODEL:-gemini-2.0-flash}
+      - GEMINI_TEMPERATURE=${GEMINI_TEMPERATURE:-0.2}
+      - MAX_REPAIR_ATTEMPTS=${MAX_REPAIR_ATTEMPTS:-3}
+      - EXECUTION_TIMEOUT_SECONDS=${EXECUTION_TIMEOUT_SECONDS:-30}
+      - SANDBOX_MEMORY_LIMIT=${SANDBOX_MEMORY_LIMIT:-256m}
+      - SANDBOX_IMAGE=${SANDBOX_IMAGE:-python:3.12-slim}
+      - WORKSPACES_DIR=/app/workspaces
+      - PROMPT_STRATEGY=${PROMPT_STRATEGY:-structured}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - CORS_ORIGINS=${CORS_ORIGINS:-["http://localhost:5173","http://localhost:5174"]}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3

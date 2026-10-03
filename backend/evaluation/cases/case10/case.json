@@ -1,0 +1,1 @@
+{"case_id": "case10", "description": "FileNotFoundError — hardcoded path that doesn't exist", "files": ["reader.py", "main.py"], "expected_error_type": "FileNotFoundError", "expected_fix_verified": true}

@@ -1,0 +1,1 @@
+{"case_id": "case04", "description": "IndexError — list out of range", "files": ["processor.py", "main.py"], "expected_error_type": "IndexError", "expected_fix_verified": true}

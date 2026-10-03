@@ -1,0 +1,1 @@
+{"case_id": "case07", "description": "ValueError — invalid literal int conversion", "files": ["parser.py", "main.py"], "expected_error_type": "ValueError", "expected_fix_verified": true}

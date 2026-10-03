@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "main.py", line 2, in <module>
+    print(get_username(42))
+  File "user.py", line 6, in get_username
+    return user.name
+AttributeError: 'NoneType' object has no attribute 'name'

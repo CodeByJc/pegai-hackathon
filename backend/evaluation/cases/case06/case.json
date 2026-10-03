@@ -1,0 +1,1 @@
+{"case_id": "case06", "description": "NameError — undefined variable", "files": ["compute.py", "main.py"], "expected_error_type": "NameError", "expected_fix_verified": true}

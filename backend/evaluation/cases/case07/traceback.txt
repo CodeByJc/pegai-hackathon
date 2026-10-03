@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "main.py", line 2, in <module>
+    print(parse_age("not_a_number"))
+  File "parser.py", line 2, in parse_age
+    return int(value)
+ValueError: invalid literal for int() with base 10: 'not_a_number'

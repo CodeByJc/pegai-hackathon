@@ -1,0 +1,1 @@
+{"case_id": "case09", "description": "RecursionError — infinite recursion without base case", "files": ["fibonacci.py", "main.py"], "expected_error_type": "RecursionError", "expected_fix_verified": true}

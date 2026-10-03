@@ -1,0 +1,1 @@
+{"case_id": "case01", "description": "KeyError — config key mismatch", "files": ["main.py", "calculator.py", "config.py"], "expected_error_type": "KeyError", "expected_fix_verified": true}

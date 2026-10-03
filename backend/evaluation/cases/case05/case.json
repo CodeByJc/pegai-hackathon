@@ -1,0 +1,1 @@
+{"case_id": "case05", "description": "TypeError — concatenating str + int", "files": ["formatter.py", "main.py"], "expected_error_type": "TypeError", "expected_fix_verified": true}

@@ -1,0 +1,48 @@
+# PyDebug Backend .gitignore
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+env.bak/
+venv.bak/
+
+# Project storage / artifacts
+workspaces/
+prompts_history/
+evaluation/results/
+scratch/
+*.log
+
+# pytest / Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# IDEs / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Distribution / Build
+dist/
+build/
+*.egg-info/
+*.egg

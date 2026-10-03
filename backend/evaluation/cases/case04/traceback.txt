@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "main.py", line 2, in <module>
+    print(get_first([]))
+  File "processor.py", line 2, in get_first
+    return items[0]
+IndexError: list index out of range

@@ -1,0 +1,1 @@
+{"case_id": "case03", "description": "AttributeError — NoneType", "files": ["user.py", "main.py"], "expected_error_type": "AttributeError", "expected_fix_verified": true}
