@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/workspace/file1.py", line 6, in <module>
+    main()
+  File "/workspace/file1.py", line 4, in main
+    run()
+  File "/workspace/file2.py", line 99, in run
+    raise ValueError("System failure")
+ValueError: System failure

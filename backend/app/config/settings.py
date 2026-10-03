@@ -42,7 +42,7 @@ class Settings(BaseSettings):
 
     # ── API ──────────────────────────────────────────────────────────────────
     api_prefix: str = Field(default="/api")
-    cors_origins: list[str] = Field(default=["http://localhost:5173", "http://localhost:5174", "http://localhost:3000"])
+    cors_origins: list[str] = Field(default=["http://localhost:5173", "http://localhost:5174", "http://localhost:3000", "https://pydebug.jc7.in"])
 
     # ── Prompt strategy ──────────────────────────────────────────────────────
     prompt_strategy: str = Field(default="structured", pattern="^(basic|structured)$")

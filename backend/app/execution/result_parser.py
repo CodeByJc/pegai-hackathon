@@ -44,13 +44,15 @@ class ResultParser:
             raw.stdout + raw.stderr, original_error_type
         )
 
-        if raw.exit_code == 0 and failed == 0:
+        if "No module named pytest" in (raw.stdout + raw.stderr) or "pytest: command not found" in (raw.stdout + raw.stderr):
+            status = "infrastructure_error"
+        elif raw.exit_code == 0 and failed == 0:
             status = "verified"
         elif raw.exit_code != 0 and tests_run == 0:
             # No tests ran — sandbox / import error
-            status = "execution_error"
+            status = "execution_failed"
         else:
-            status = "failed"
+            status = "test_failed"
 
         return VerificationResult(
             status=status,

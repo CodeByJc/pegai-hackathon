@@ -1,0 +1,16 @@
+{
+  "test_id": "test09_regression_test",
+  "category": "normal",
+  "expected_error_type": "ValueError",
+  "expected_root_cause": "calculate_total multiplies prices instead of summing them.",
+  "expected_files_involved": [
+    "file1.py",
+    "file2.py"
+  ],
+  "expected_hypothesis_count_min": 1,
+  "requires_multi_file_reasoning": true,
+  "requires_ranked_hypotheses": false,
+  "requires_generated_tests": true,
+  "requires_execution_verification": true,
+  "expected_verification": "verified"
+}

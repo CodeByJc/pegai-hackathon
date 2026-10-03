@@ -1,0 +1,17 @@
+{
+  "test_id": "test06_multifile_config",
+  "category": "stretch",
+  "expected_error_type": "KeyError",
+  "expected_root_cause": "file2.py introduces a typo 'feature_X_enabled', which file3.py rejects.",
+  "expected_files_involved": [
+    "file1.py",
+    "file2.py",
+    "file3.py"
+  ],
+  "expected_hypothesis_count_min": 1,
+  "requires_multi_file_reasoning": true,
+  "requires_ranked_hypotheses": false,
+  "requires_generated_tests": true,
+  "requires_execution_verification": true,
+  "expected_verification": "verified"
+}

@@ -45,12 +45,12 @@ class VerificationEngine:
             and result.original_error_absent
         ):
             result.status = "verified"
-        elif result.status not in ("timeout", "execution_error"):
+        elif result.status not in ("timeout", "execution_failed", "infrastructure_error"):
             if result.tests_run == 0 and result.exit_code == 0:
                 # Nothing ran — treat as not verified (no evidence either way)
                 result.status = "not_verified"
             elif result.failed > 0 or result.exit_code != 0:
-                result.status = "failed"
+                result.status = "test_failed"
 
         logger.info("VerificationEngine final status: %s", result.status)
         return result

@@ -1,0 +1,17 @@
+{
+  "test_id": "test07_multiple_causes",
+  "category": "stretch",
+  "expected_error_type": "AttributeError",
+  "expected_root_cause": "fetch_user returns None and render_profile assumes a dictionary.",
+  "expected_files_involved": [
+    "file2.py",
+    "file3.py"
+  ],
+  "expected_hypothesis_count_min": 2,
+  "requires_multi_file_reasoning": true,
+  "requires_ranked_hypotheses": true,
+  "minimum_hypotheses": 2,
+  "requires_generated_tests": true,
+  "requires_execution_verification": true,
+  "expected_verification": "verified"
+}

@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/jc/JC_PROJECT/pegai-hackathon/backend/debug_test_cases/test01_name_error/file1.py", line 10, in <module>
+    main()
+  File "/home/jc/JC_PROJECT/pegai-hackathon/backend/debug_test_cases/test01_name_error/file1.py", line 6, in main
+    metrics = calculate_metrics(data)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jc/JC_PROJECT/pegai-hackathon/backend/debug_test_cases/test01_name_error/file2.py", line 3, in calculate_metrics
+    avg = mean(data)
+          ^^^^
+NameError: name 'mean' is not defined

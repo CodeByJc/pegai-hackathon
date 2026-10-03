@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/home/jc/JC_PROJECT/pegai-hackathon/backend/debug_test_cases/test09_regression_test/file1.py", line 13, in <module>
+    checkout()
+  File "/home/jc/JC_PROJECT/pegai-hackathon/backend/debug_test_cases/test09_regression_test/file1.py", line 10, in checkout
+    raise ValueError(f"Total is wrong! Expected 150, got {total}")
+ValueError: Total is wrong! Expected 150, got 5000

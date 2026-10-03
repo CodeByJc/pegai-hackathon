@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/home/jc/JC_PROJECT/pegai-hackathon/backend/debug_test_cases/test02_type_error/file1.py", line 10, in <module>
+    run_system()
+  File "/home/jc/JC_PROJECT/pegai-hackathon/backend/debug_test_cases/test02_type_error/file1.py", line 7, in run_system
+    manager.start()
+  File "/home/jc/JC_PROJECT/pegai-hackathon/backend/debug_test_cases/test02_type_error/file2.py", line 9, in start
+    timeout_sec = self.timeout_ms / 1000
+                  ~~~~~~~~~~~~~~~~^~~~~~
+TypeError: unsupported operand type(s) for /: 'str' and 'int'

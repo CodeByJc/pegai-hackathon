@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/jc/JC_PROJECT/pegai-hackathon/backend/debug_test_cases/test07_multiple_causes/file1.py", line 9, in <module>
+    display_user(42)
+  File "/home/jc/JC_PROJECT/pegai-hackathon/backend/debug_test_cases/test07_multiple_causes/file1.py", line 6, in display_user
+    print(render_profile(user))
+          ^^^^^^^^^^^^^^^^^^^^
+  File "/home/jc/JC_PROJECT/pegai-hackathon/backend/debug_test_cases/test07_multiple_causes/file3.py", line 4, in render_profile
+    name = user.get('name', 'Unknown')
+           ^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'

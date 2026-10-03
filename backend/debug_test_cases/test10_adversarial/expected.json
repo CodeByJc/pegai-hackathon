@@ -1,0 +1,6 @@
+{
+  "test_id": "test10_adversarial",
+  "category": "adversarial",
+  "expected_behavior": "detect_inconsistency_or_uncertainty",
+  "must_not_hallucinate_root_cause": true
+}

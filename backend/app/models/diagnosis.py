@@ -85,7 +85,7 @@ class DebugReport(BaseModel):
 # ── Verification ──────────────────────────────────────────────────────────────
 
 class VerificationResult(BaseModel):
-    status: str   # verified | failed | not_verified | not_run | timeout | execution_error
+    status: str   # verified | test_failed | execution_failed | timeout | infrastructure_error | not_verified
     exit_code: Optional[int] = None
     tests_run: int = 0
     passed: int = 0

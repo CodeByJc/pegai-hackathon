@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/jc/JC_PROJECT/pegai-hackathon/backend/debug_test_cases/test03_zero_division/file1.py", line 11, in <module>
+    control_loop()
+  File "/home/jc/JC_PROJECT/pegai-hackathon/backend/debug_test_cases/test03_zero_division/file1.py", line 7, in control_loop
+    efficiency = engine.calculate_efficiency(data['distance'], data['fuel_used'])
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jc/JC_PROJECT/pegai-hackathon/backend/debug_test_cases/test03_zero_division/file2.py", line 4, in calculate_efficiency
+    return distance / fuel_used
+           ~~~~~~~~~^~~~~~~~~~~
+ZeroDivisionError: division by zero

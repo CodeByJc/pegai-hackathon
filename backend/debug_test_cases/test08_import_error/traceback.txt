@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/home/jc/JC_PROJECT/pegai-hackathon/backend/debug_test_cases/test08_import_error/file1.py", line 1, in <module>
+    from file2 import start_app
+  File "/home/jc/JC_PROJECT/pegai-hackathon/backend/debug_test_cases/test08_import_error/file2.py", line 1, in <module>
+    from file3 import MissingClass
+ImportError: cannot import name 'MissingClass' from 'file3' (/home/jc/JC_PROJECT/pegai-hackathon/backend/debug_test_cases/test08_import_error/file3.py). Did you mean: 'ExistingClass'?

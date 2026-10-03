@@ -1,0 +1,16 @@
+{
+  "test_id": "test04_index_error",
+  "category": "normal",
+  "expected_error_type": "IndexError",
+  "expected_root_cause": "parts[2] fails if the line does not contain a role.",
+  "expected_files_involved": [
+    "file2.py",
+    "file3.py"
+  ],
+  "expected_hypothesis_count_min": 1,
+  "requires_multi_file_reasoning": true,
+  "requires_ranked_hypotheses": false,
+  "requires_generated_tests": true,
+  "requires_execution_verification": true,
+  "expected_verification": "verified"
+}

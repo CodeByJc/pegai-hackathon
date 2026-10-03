@@ -1,0 +1,16 @@
+{
+  "test_id": "test02_type_error",
+  "category": "normal",
+  "expected_error_type": "TypeError",
+  "expected_root_cause": "Config loads timeout as a string, but ProcessManager divides it by 1000.",
+  "expected_files_involved": [
+    "file2.py",
+    "file3.py"
+  ],
+  "expected_hypothesis_count_min": 1,
+  "requires_multi_file_reasoning": true,
+  "requires_ranked_hypotheses": false,
+  "requires_generated_tests": true,
+  "requires_execution_verification": true,
+  "expected_verification": "verified"
+}

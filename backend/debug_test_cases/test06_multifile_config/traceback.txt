@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/jc/JC_PROJECT/pegai-hackathon/backend/debug_test_cases/test06_multifile_config/file1.py", line 9, in <module>
+    main()
+  File "/home/jc/JC_PROJECT/pegai-hackathon/backend/debug_test_cases/test06_multifile_config/file1.py", line 6, in main
+    process_data(flags)
+  File "/home/jc/JC_PROJECT/pegai-hackathon/backend/debug_test_cases/test06_multifile_config/file3.py", line 16, in process_data
+    raise KeyError(f"Invalid flag {k}")
+KeyError: 'Invalid flag feature_X_enabled'

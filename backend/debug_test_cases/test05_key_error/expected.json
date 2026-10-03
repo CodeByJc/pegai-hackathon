@@ -1,0 +1,15 @@
+{
+  "test_id": "test05_key_error",
+  "category": "normal",
+  "expected_error_type": "KeyError",
+  "expected_root_cause": "Accessing 'db_port' which is not present in the configuration dictionary.",
+  "expected_files_involved": [
+    "file2.py"
+  ],
+  "expected_hypothesis_count_min": 1,
+  "requires_multi_file_reasoning": false,
+  "requires_ranked_hypotheses": false,
+  "requires_generated_tests": true,
+  "requires_execution_verification": true,
+  "expected_verification": "verified"
+}

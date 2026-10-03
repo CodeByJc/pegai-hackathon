@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/jc/JC_PROJECT/pegai-hackathon/backend/debug_test_cases/test05_key_error/file1.py", line 10, in <module>
+    start_server()
+  File "/home/jc/JC_PROJECT/pegai-hackathon/backend/debug_test_cases/test05_key_error/file1.py", line 6, in start_server
+    db = init_db(env)
+         ^^^^^^^^^^^^
+  File "/home/jc/JC_PROJECT/pegai-hackathon/backend/debug_test_cases/test05_key_error/file2.py", line 3, in init_db
+    return f"Connecting to {config['db_host']}:{config['db_port']}"
+                                                ~~~~~~^^^^^^^^^^^
+KeyError: 'db_port'

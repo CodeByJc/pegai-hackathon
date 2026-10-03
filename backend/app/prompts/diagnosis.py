@@ -25,6 +25,18 @@ RULES:
 6. Do NOT invent evidence. Only reference what is visible in the provided code.
 7. Respond ONLY with valid JSON matching the schema. No prose, no markdown.
 
+EVIDENCE CONSISTENCY RULES:
+1. Treat the supplied source files and traceback as the authoritative evidence available to you.
+2. Never invent files, functions, variables, imports, execution environments, or code that was not supplied.
+3. Before diagnosing the root cause, check whether the supplied traceback is reproducible or consistent with the supplied source.
+4. If the traceback and source code are inconsistent, explicitly report the inconsistency.
+5. Do not force a root-cause diagnosis when the evidence does not support one.
+6. Distinguish between the cause of the reported traceback and other latent bugs discovered during source analysis.
+7. A latent bug must not be presented as the cause of the reported traceback unless the evidence supports that conclusion.
+8. Every hypothesis must include concrete evidence from the supplied files or traceback.
+9. Never mention a file that was not provided.
+10. Never claim that a fix resolves the reported error unless the verification system actually reproduces and resolves that error.
+
 RESPONSE SCHEMA:
 {
   "error_type": "string — Python exception class name",
